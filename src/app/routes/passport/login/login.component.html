@@ -1,0 +1,45 @@
+<form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form" class="loginInForm flex" [nzLayout]="'vertical'">
+    <div class="loginLeft"></div>
+
+    <div class="flex1 login-right">
+        <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+        <!--        <h2 class="ls2 tc" style="font-family: impact">天津港第四港埠智能管理平台</h2>-->
+
+        <nz-form-item class="mt30">
+            <!--            <nz-form-label>账号</nz-form-label>-->
+            <nz-form-control>
+                <!--        <nz-form-control [nzErrorTip]="'请输入用户名'">-->
+                <nz-input-group nzSize="large" nzPrefixIcon="user" class="h50">
+                    <input nz-input formControlName="userName" placeholder="请输入用户名" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="mt30">
+            <!--            <nz-form-label>密码</nz-form-label>-->
+
+            <nz-form-control>
+                <nz-input-group class="h50" nzSize="large" nzPrefixIcon="lock">
+                    <input nz-input type="password" formControlName="password" placeholder="请输入密码" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="mb10" *ngIf="showCaptcha">
+            <nz-form-control>
+                <nz-input-group nzSize="large" class="flex h50">
+                    <div class="flex1 flex justify-content-center align-items-center">
+                        <input class="h50" nz-input formControlName="captchaVerCode" placeholder="请输入验证码" />
+                    </div>
+                    <div class="flex1 flex justify-content-center align-items-center">
+                        <img (click)="cl()" [src]="captchaUrl" alt="验证码" class="cp" />
+                    </div>
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="mt50">
+            <button class="h60" nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="http.loading" nzBlock>
+                <span class="ls2">立即登录</span>
+            </button>
+        </nz-form-item>
+    </div>
+</form>

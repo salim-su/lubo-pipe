@@ -1,0 +1,119 @@
+<nz-row>
+<!--  <nz-col nzSpan="4">-->
+<!--    <nz-card class="spec-left-list cp h" [nzBordered]="false">-->
+
+<!--    </nz-card>-->
+<!--  </nz-col>-->
+<!--  <nz-col nzSpan="20">-->
+  <nz-col nzSpan="24">
+    <nz-card class="h" [nzBordered]="false" style="min-height: calc(100vh - 80px);">
+      <div>
+        <button nz-button nzType="primary" (click)="add()">
+          <i nz-icon nzType="plus"></i>
+          新增
+        </button>
+        <button nz-button nzType="primary" (click)="search()">
+          <i nz-icon nzType="search"></i>
+          查询
+        </button>
+        <button nz-button nzType="primary" (click)="reset()">
+          重置
+        </button>
+      </div>
+      <form nz-form [formGroup]="searchForm" class="ant-advanced-search-form">
+        <div class="row">
+          <div class="col-1-4 col-1-3-md">
+            <nz-form-item>
+              <nz-form-label>角色名称</nz-form-label>
+              <nz-form-control class="flex2">
+                <input nz-input formControlName="roleName"/>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-1-4 col-1-3-md">
+            <nz-form-item>
+              <nz-form-label>角色别名</nz-form-label>
+              <nz-form-control class="flex2">
+                <input nz-input formControlName="roleAlias"/>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+      <nz-table #expandTable
+                [nzData]="roleList"
+                [nzShowPagination]="false"
+                [nzLoading]="loadingroleList">
+        <thead>
+        <tr>
+          <th>角色名称</th>
+          <th>角色别名</th>
+          <th>排序</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let data of expandTable.data">
+          <ng-container *ngFor="let item of expandedRoleList[data.id]">
+            <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
+              <td
+                [nzIndentSize]="item.level * 20"
+                [nzShowExpand]="!!item.children"
+                [(nzExpand)]="item.expand"
+                (nzExpandChange)="tableUtils.collapse(expandedRoleList[data.id], item, $event)"
+              >
+                {{ item.roleName }}
+              </td>
+              <td>{{ item.roleAlias }}</td>
+              <td>{{ item.sort }}</td>
+              <td>
+                <a (click)="add(item)">添加</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a (click)="edit(item)">编辑</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a (click)="menuSet(item)">配置菜单</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a
+                  class=line-remove
+                  nz-popconfirm
+                  nzPopconfirmTitle="确认删除吗?"
+                  nzPopconfirmPlacement="top"
+                  (nzOnConfirm)="remove(item)">删除</a>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </nz-col>
+</nz-row>
+<!--<nz-drawer-->
+<!--  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }"-->
+<!--  [nzWidth]="400"-->
+<!--  [nzClosable]="false"-->
+<!--  [nzVisible]="visible"-->
+<!--  nzPlacement="right"-->
+<!--  [nzTitle]="settingMenuTitle"-->
+<!--  (nzOnClose)="close()"-->
+<!--&gt;-->
+<!--  <ng-template #settingMenuTitle>-->
+<!--    菜单设置-{{settingMenu?.roleName}}-->
+<!--  </ng-template>-->
+<!--  <nz-tree-->
+<!--    nzCheckable-->
+<!--    [nzData]="nodes"-->
+<!--    [nzExpandAll]="true"-->
+<!--    [nzCheckedKeys]="defaultCheckedKeys"-->
+<!--    (nzCheckBoxChange)="nzCheck($event)"-->
+<!--  >-->
+<!--  </nz-tree>-->
+
+<!--  <div *ngIf="loadingFlag" class="flex justify-content-center align-items-center h">-->
+<!--    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>-->
+<!--  </div>-->
+<!--  <div class="drawer-footer-bottom">-->
+<!--    <button type="button" (click)="close()" class="ant-btn" style="margin-right: 8px;"><span>取消</span></button>-->
+<!--    <button type="button" (click)="submit()" class="ant-btn ant-btn-primary"><span>保存</span></button>-->
+<!--  </div>-->
+<!--</nz-drawer>-->

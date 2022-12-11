@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <div class="modal-title">{{title}}</div>
+</div>
+<form nz-form [formGroup]="form">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="name" nzRequired>系统名称</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <input id="name" nz-input formControlName="name"/>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="source" nzRequired>系统图标</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <input id="source" nz-input formControlName="source"/>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="code" nzRequired>系统编码</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <input id="code" nz-input formControlName="code"/>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="code" nzRequired>系统地址</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <input id="path" nz-input formControlName="path"/>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="sort" nzRequired>系统排序</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <nz-input-number nz-input formControlName="sort"></nz-input-number>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="modal-footer">
+    <button nz-button type="button" (click)="close()">关闭</button>
+    <button nz-button type="submit" nzType="primary" (click)="save()">保存</button>
+</div>

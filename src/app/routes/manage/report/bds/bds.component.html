@@ -1,0 +1,83 @@
+<div class="flex fullscreen justify-content-center">
+    <div class="flex">
+        <div class="tableBD">
+            <form nz-form class="w flex" [formGroup]="form">
+                <div nz-row w>
+                    <div nz-col [nzSpan]="24">
+                        <nz-form-item class="mb10 flex">
+                            <nz-form-label nzFor="name" style="margin-left: 27px">
+                                <span class="cfff">日期</span>
+                            </nz-form-label>
+                            <nz-form-control>
+                                <nz-range-picker
+                                    [nzShowTime]="false"
+                                    formControlName="searchDate"
+                                    [nzAllowClear]="false"
+                                    (ngModelChange)="pageInfo.pi = 1; loadList()"
+                                ></nz-range-picker>
+                            </nz-form-control>
+                            <div
+                                title="导出"
+                                (click)="export()"
+                                style="width: 50px; height: 30px; background-color: #15afb2; border-radius: 5px"
+                                class="justify-content-center align-items-center cp ml20 flex"
+                            >
+                                <span style="color: white">导出</span>
+                            </div>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </form>
+            <nz-table
+                class="fix-table even-table"
+                #table
+                [nzNoResult]="noResultTemplate"
+                [nzShowSizeChanger]="true"
+                [nzFrontPagination]="false"
+                [nzShowTotal]="totalTemplate"
+                [nzTotal]="pageInfo.total"
+                [(nzPageIndex)]="pageInfo.pi"
+                [(nzPageSize)]="pageInfo.ps"
+                [nzData]="dataList"
+                [nzLoading]="pageInfo.loading"
+                (nzPageIndexChange)="loadList()"
+            >
+                <thead>
+                    <tr>
+                        <th>区域</th>
+                        <th>位置</th>
+                        <th>变比</th>
+                        <th>开始时间</th>
+                        <th>开始表值</th>
+                        <th>开始电量</th>
+                        <th>结束时间</th>
+                        <th>结束表值</th>
+                        <th>结束电量</th>
+                        <th>用电量(千瓦时)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of table.data; let i = index">
+                        <td>{{ data.areaName }}</td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.ratio }}</td>
+                        <td>{{ data.beginDate }}</td>
+                        <td>{{ data.beginElectricStr }}</td>
+                        <td>{{ data.beginValue }}</td>
+                        <td>{{ data.endDate }}</td>
+                        <td>{{ data.endElectricStr }}</td>
+                        <td>{{ data.endValue }}</td>
+                        <td>{{ data.electricityConsumption }}</td>
+                    </tr>
+                </tbody>
+                <ng-template #totalTemplate let-total class="sysy"> 共 {{ total }} 条数据</ng-template>
+                <ng-template #noResultTemplate>
+                    <div class="flex flex-column align-items-center">
+                        <img src="../../../../../assets/img/no-result.png" alt="" class="no-result-img" />
+                        <span style="color: #7a7e8b">暂无数据</span>
+                    </div>
+                </ng-template>
+            </nz-table>
+        </div>
+    </div>
+</div>

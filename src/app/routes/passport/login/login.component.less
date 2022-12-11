@@ -1,0 +1,142 @@
+@import '~@delon/theme/index';
+//@import '~@delon/theme/styles/default';
+
+:host {
+    display: block;
+    //width: 368px;
+    width: 1765px;
+    height: 700px;
+    //margin: 0 auto;
+    //margin-left: 50%;
+    //background-color: #cccccc;
+    //margin-bottom: 5vh;
+
+    ::ng-deep {
+        .loginInForm {
+            width: 100%;
+            height: 100%;
+            background-image: url('../../../../assets/img/login-bg-content.png');
+            //padding: 220px 80px 60px 100px;
+            background-size: cover;
+
+            //input:-webkit-autofill,
+            //textarea:-webkit-autofill,
+            //select:-webkit-autofill {
+            //  -webkit-text-fill-color: #fff !important;
+            //  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+            //  background-color: transparent !important;
+            //  background-image: none !important;
+            //  transition: background-color 50000s ease-in-out 0s !important; //背景色透明  生效时长  过渡效果  启用时延迟的时间
+            //}
+            //
+            //input {
+            //  background-color: rgba(255, 255, 255, 0.4) !important;
+            //  color: #ffffff !important;
+            //  font-size: 20px !important;
+            //}
+            //
+            //input::-webkit-input-placeholder { /* WebKit browsers */
+            //  color: #fff;
+            //}
+
+            //.anticon {
+            //    color: #ffffff !important;
+            //    font-size: 18px !important;
+            //}
+
+            .has-error .ant-input,
+            .has-error .ant-input:hover {
+                background-color: rgba(255, 255, 255, 0.4) !important;
+            }
+
+            .ant-input {
+                transition: all 0s;
+                //border-color: transparent !important;
+            }
+
+            .ant-input:focus {
+                box-shadow: 0 0 0 2px transparent;
+            }
+        }
+
+        .ant-form-item {
+            margin-bottom: 20px !important;
+        }
+
+        .ant-tabs .ant-tabs-bar {
+            margin-bottom: 24px;
+            text-align: center;
+            border-bottom: 0;
+        }
+
+        .ant-tabs-tab {
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        //.ant-input-affix-wrapper .ant-input:not(:first-child) {
+        //    padding-left: 34px;
+        //}
+
+        .icon {
+            margin-left: 16px;
+            color: rgba(0, 0, 0, 0.2);
+            font-size: 24px;
+            vertical-align: middle;
+            cursor: pointer;
+            transition: color 0.3s;
+
+            &:hover {
+                color: @primary-color;
+            }
+        }
+
+        .other {
+            margin-top: 24px;
+            line-height: 22px;
+            text-align: left;
+
+            nz-tooltip {
+                vertical-align: middle;
+            }
+
+            .register {
+                float: right;
+            }
+        }
+
+        @media screen and (max-width: 1920px) and (min-width: 1367px) {
+            .loginInForm {
+                //margin-left: 60%;
+                //margin-top: 30%;
+            }
+        }
+        @media screen and (max-width: 1919px) {
+            .loginInForm {
+                //margin-left: 40%;
+                //margin-top: 8%;
+            }
+        }
+
+        //.ant-input-affix-wrapper {
+        //    font-size: 18px !important;
+        //    //background-color: unset !important;
+        //}
+        //
+        //.ant-form-item-label > label {
+        //    font-size: 18px;
+        //}
+        .loginLeft {
+            width: 1185px;
+        }
+
+        .login-right {
+            padding: 255px 98px 158px 75px;
+        }
+        .box {
+            height: 1rem;
+            width: 1rem;
+            background-color: #0d6f87 !important;
+        }
+    }
+}

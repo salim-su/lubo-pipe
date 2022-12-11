@@ -1,0 +1,26 @@
+<form nz-form [formGroup]="form">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="roleName" nzRequired>角色名称</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input formControlName="roleName"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="roleAlias" nzRequired>角色别名</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input formControlName="roleAlias"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="sort" nzRequired>排序</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-input-number [nzStep]="1" formControlName="sort" style="width:100%"></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nz-button type="submit" nzType="primary" (click)="saveAndClose()">保存</button>
+</div>
+

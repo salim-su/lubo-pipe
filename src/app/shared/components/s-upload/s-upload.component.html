@@ -1,0 +1,63 @@
+<ng-container *ngIf="!isPicture">
+    <nz-upload
+        [nzAccept]="nzAcceptType"
+        [nzMultiple]="nzMultipleFlag"
+        [nzShowUploadList]="false"
+        nzAction="/blade-resource/oss/endpoint/put-file-attach"
+        (nzChange)="change($event)"
+    >
+        <button nz-button><i nz-icon nzType="upload"></i>上传</button>
+    </nz-upload>
+
+    <nz-list>
+        <nz-list-item
+            *ngFor="let item of fileList; let index = index"
+            [nzActions]="isEdit ? [showAction, downloadAction, delAction] : [showAction, downloadAction]"
+        >
+            <ng-template #showAction><a (click)="show(item)">预览</a></ng-template>
+            <ng-template #downloadAction><a (click)="download(item)">下载</a></ng-template>
+            <ng-template #delAction>
+                <a nz-popconfirm nzPopconfirmTitle="是否删除" (nzOnConfirm)="del(index)">删除</a>
+            </ng-template>
+            {{ item.originalName }}
+        </nz-list-item>
+    </nz-list>
+</ng-container>
+
+<ng-container *ngIf="isPicture">
+    <nz-upload
+        [nzAccept]="nzAcceptType"
+        [nzMultiple]="nzMultipleFlag"
+        [nzShowUploadList]="false"
+        [nzDisabled]="fileList.length > 0"
+        nzAction="/blade-resource/oss/endpoint/put-file-attach"
+        (nzChange)="change($event)"
+    >
+        <button nz-button [disabled]="fileList.length != 0"><i nz-icon nzType="upload"></i>上传</button>
+    </nz-upload>
+
+    <nz-list>
+        <nz-list-item
+            *ngFor="let item of fileList; let index = index"
+            [nzActions]="isEdit ? [downloadAction, delAction] : [downloadAction]"
+            style="margin-top: 10px; padding-left: 10px; border: 1px solid #ccc; border-radius: 5px"
+        >
+            <!--        <ng-template #showAction><a (click)="show(item)">预览</a></ng-template>-->
+            <ng-template #downloadAction><a (click)="download(item)">下载</a></ng-template>
+            <ng-template #delAction>
+                <a nz-popconfirm nzPopconfirmTitle="是否删除" (nzOnConfirm)="del(index)">删除</a>
+            </ng-template>
+            <img [src]="item?.link" alt="" style="width: 60px; height: 60px; background-size: cover" />
+            {{ item.originalName }}
+        </nz-list-item>
+    </nz-list>
+</ng-container>
+
+<!--<ng-container *ngIf="isPicture">-->
+<!--    <div class="clearfix">-->
+<!--        <nz-upload nzAction="http://39.101.142.139:88/blade-resource/oss/endpoint/put-file-attach" nzListType="picture"-->
+<!--                   [(nzFileList)]="fileList" [nzMultiple]="nzMultipleFlag" (nzChange)="change($event)">-->
+<!--            <button nz-button><i nz-icon nzType="upload" *ngIf="fileList.length==0"></i>Upload</button>-->
+<!--        </nz-upload>-->
+<!--    </div>-->
+<!--</ng-container>-->

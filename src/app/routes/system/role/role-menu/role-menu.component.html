@@ -1,0 +1,13 @@
+<nz-tree
+  nzCheckable
+  [nzExpandAll]="expandAll"
+  [nzData]="nodes"
+  [nzCheckedKeys]="grantData.menuIds"
+  (nzCheckBoxChange)="nzCheck($event)"
+>
+</nz-tree>
+
+<div class="drawer-footer-bottom">
+  <button type="button" (click)="close()" class="ant-btn" style="margin-right: 8px;"><span>取消</span></button>
+  <button type="button" (click)="submit()" class="ant-btn ant-btn-primary"><span>保存</span></button>
+</div>

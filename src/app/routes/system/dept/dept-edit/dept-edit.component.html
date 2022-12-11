@@ -1,0 +1,45 @@
+<form nz-form [formGroup]="form">
+  <nz-form-item *ngIf="parent">
+    <nz-form-label [nzSpan]="6">上级公司</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      {{ parent.fullName }}
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="deptName" nzRequired>公司全称</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input formControlName="fullName"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="deptName" nzRequired>公司简称</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input formControlName="deptName"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="deptCategory" nzRequired>机构类型</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-select formControlName="deptCategory">
+        <nz-option *ngFor="let item of dict_orgCategory;" [nzValue]="item.dictKey" [nzLabel]="item.dictValue"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="sort" nzRequired>排序</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-input-number [nzStep]="1" formControlName="sort" style="width:100%"></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="remark">备注</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input formControlName="remark"/>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nz-button type="submit" nzType="primary" (click)="saveAndClose()">保存</button>
+</div>
+

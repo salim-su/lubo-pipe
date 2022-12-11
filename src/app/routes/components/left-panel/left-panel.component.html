@@ -1,0 +1,272 @@
+<div class="app-left-panel-content">
+    <!--概况-->
+    <div class="flex flex-column">
+        <div class="cfff fs16">概况</div>
+        <img class="split-img" src="./assets/img/split.png" alt="" />
+        <div class="flex mt20 justify-content-between">
+            <div class="split-item cp">
+                <div class="title">稳定运行</div>
+                <div>
+                    <span class="fw fs16">{{ baseInfo?.runningDays }}</span>
+                    <span class="fs12 ml5">天</span>
+                </div>
+            </div>
+            <div class="split-item cp" (click)="switchSmartSocketTotalNum('2')">
+                <div class="title">接入插座</div>
+                <div>
+                    <span class="fw fs16">{{ baseInfo?.smartSocketTotalNum }}</span>
+                    <span class="fs12 ml5">块</span>
+                </div>
+            </div>
+            <div class="split-item cp" (click)="switchSmartElectricityTotalNum('1')">
+                <div class="title">智慧用电</div>
+                <div>
+                    <span class="fw fs16">{{ baseInfo?.smartElectricityTotalNum }}</span>
+                    <span class="fs12 ml5">块</span>
+                </div>
+            </div>
+            <div class="split-item cp" (click)="switchSmartElectricityTotalNum('3')">
+                <div class="title">智慧水表</div>
+                <div>
+                    <span class="fw fs16">{{ baseInfo?.smartWaterTotalNum }}</span>
+                    <span class="fs12 ml5">块</span>
+                </div>
+            </div>
+            <div class="split-item cp" (click)="switchSmartElectricityTotalNum('8')">
+                <div class="title">车辆定位</div>
+                <div>
+                    <span class="fw fs16">{{ baseInfo?.truckTotalNum }}</span>
+                    <span class="fs12 ml5">辆</span>
+                </div>
+            </div>
+        </div>
+        <div class="cfff mt20 fs16">状态统计</div>
+        <img src="./assets/img/split.png" alt="" class="split-img" />
+        <!--智能插座-->
+        <div>
+            <div class="flex justify-content-center mt15 mb10">
+                <div class="text-center fs14 w170" style="background: linear-gradient(to right, #061a26, #0a2f3a, #061a26); color: #16d8d3">
+                    <span>智能插座 </span>
+                    <span>{{ baseInfo?.smartSocketTotalNum }}</span>
+                </div>
+            </div>
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">正常</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#05101D', to: '#0D6F87' }"
+                        [nzPercent]="(baseInfo?.smartSocketTotalOnRate * 100).toFixed(2)"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                </div>
+                <div class="fs12" style="color: #1adfe0">{{ (baseInfo?.smartSocketTotalOnRate * 100).toFixed(2) }}%</div>
+            </div>
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">离线</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#170C15', to: '#600F0B' }"
+                        [nzPercent]="(baseInfo?.smartSocketTotalOffRate * 100).toFixed(2)"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                </div>
+                <div class="fs12" style="color: #1adfe0">{{ (baseInfo?.smartSocketTotalOffRate * 100).toFixed(2) }}%</div>
+            </div>
+        </div>
+        <!--智慧用电-->
+        <div>
+            <div class="flex justify-content-center mt15 mb10">
+                <div class="text-center fs14 w170" style="background: linear-gradient(to right, #061a26, #0a2f3a, #061a26); color: #16d8d3">
+                    <span>智慧用电 </span>
+                    <span>{{ baseInfo?.smartElectricityTotalNum }}</span>
+                </div>
+            </div>
+
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">正常</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#05101D', to: '#0D6F87' }"
+                        [nzPercent]="(baseInfo?.smartElectricityOnRate * 100).toFixed(2)"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                    <!--                    <div class="line-body-normal" [ngStyle]="{'width':baseInfo?.smartElectricityOnRate*100+'%'}"></div>-->
+                </div>
+                <div class="fs12" style="color: #1adfe0">{{ (baseInfo?.smartElectricityOnRate * 100).toFixed(2) }}%</div>
+            </div>
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">离线</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#170C15', to: '#600F0B' }"
+                        [nzPercent]="(baseInfo?.smartElectricityOffRate * 100).toFixed(2)"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                </div>
+                <div class="fs12" style="color: #1adfe0">{{ (baseInfo?.smartElectricityOffRate * 100).toFixed(2) }}%</div>
+            </div>
+        </div>
+        <!--智慧水表-->
+        <div>
+            <div class="flex justify-content-center mt15 mb10">
+                <div class="text-center fs14 w170" style="background: linear-gradient(to right, #061a26, #0a2f3a, #061a26); color: #16d8d3">
+                    <span>智慧水表 </span>
+                    <span>{{ baseInfo?.smartWaterTotalNum }}</span>
+                </div>
+            </div>
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">正常</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#05101D', to: '#0D6F87' }"
+                        [nzPercent]="(baseInfo?.smartWaterOnRate * 100).toFixed(2)"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                </div>
+                <div class="fs12" style="color: #1adfe0">{{ (baseInfo?.smartWaterOnRate * 100).toFixed(2) }}%</div>
+            </div>
+
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">离线</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#170C15', to: '#600F0B' }"
+                        [nzPercent]="(baseInfo?.smartWaterOffRate * 100).toFixed(2)"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                </div>
+                <div class="fs12" style="color: #1adfe0">{{ (baseInfo?.smartWaterOffRate * 100).toFixed(2) }}%</div>
+            </div>
+        </div>
+        <!--智慧光伏-->
+        <div>
+            <div class="flex justify-content-center mt15 mb10">
+                <div class="text-center fs14 w170" style="background: linear-gradient(to right, #061a26, #0a2f3a, #061a26); color: #16d8d3">
+                    <span>智慧光伏 </span>
+                    <span>{{ 1 }}</span>
+                </div>
+            </div>
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">正常</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#05101D', to: '#0D6F87' }"
+                        [nzPercent]="100"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                </div>
+                <div class="fs12" style="color: #1adfe0">100%</div>
+            </div>
+
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">离线</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#170C15', to: '#600F0B' }"
+                        [nzPercent]="0"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                </div>
+                <div class="fs12" style="color: #1adfe0">0%</div>
+            </div>
+        </div>
+        <!--智慧场桥-->
+        <div>
+            <div class="flex justify-content-center mt15 mb10">
+                <div class="text-center fs14 w170" style="background: linear-gradient(to right, #061a26, #0a2f3a, #061a26); color: #16d8d3">
+                    <span>智慧场桥 </span>
+                    <span>{{ 33 }}</span>
+                </div>
+            </div>
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">正常</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#05101D', to: '#0D6F87' }"
+                        [nzPercent]="100"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                </div>
+                <div class="fs12" style="color: #1adfe0">100%</div>
+            </div>
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">离线</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#170C15', to: '#600F0B' }"
+                        [nzPercent]="0"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                </div>
+                <div class="fs12" style="color: #1adfe0">0%</div>
+            </div>
+        </div>
+        <!--车辆定位-->
+        <div>
+            <div class="flex justify-content-center mt15 mb10">
+                <div class="text-center fs14 w170" style="background: linear-gradient(to right, #061a26, #0a2f3a, #061a26); color: #16d8d3">
+                    <span>车辆定位 </span>
+                    <span>{{ baseInfo?.truckTotalNum }}</span>
+                </div>
+            </div>
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">正常</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#05101D', to: '#0D6F87' }"
+                        [nzPercent]="(baseInfo?.truckOnRate * 100).toFixed(2)"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                </div>
+                <div class="fs12" style="color: #1adfe0">{{ (baseInfo?.truckOnRate * 100).toFixed(2) }}%</div>
+            </div>
+            <div class="flex align-items-center pl20 mt5">
+                <div class="cfff mr30 fs14">离线</div>
+                <div class="line-content mr30">
+                    <nz-progress
+                        [nzStrokeWidth]="20"
+                        [nzStrokeColor]="{ from: '#170C15', to: '#600F0B' }"
+                        [nzPercent]="(baseInfo?.truckOffRate * 100).toFixed(2)"
+                        nzStatus="active"
+                        [nzShowInfo]="false"
+                    >
+                    </nz-progress>
+                </div>
+                <div class="fs12" style="color: #1adfe0">{{ (baseInfo?.truckOffRate * 100).toFixed(2) }}%</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<form nz-form [formGroup]="form">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="parentId" nzRequired>上级菜单</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <nz-tree-select [nzDropdownStyle]="{'height':'400px'}" [nzNodes]="menus"
+                            formControlName="parentId">
+            </nz-tree-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="name" nzRequired>名称</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <input id="name" nz-input formControlName="name"/>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="path" nzRequired>地址</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <input id="path" nz-input formControlName="path"/>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="source" nzRequired>图标</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <input id="source" nz-input formControlName="source"/>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="code" nzRequired>编码</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <input id="code" nz-input formControlName="code"/>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="sort" nzRequired>排序</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <nz-input-number [nzStep]="1" formControlName="sort"></nz-input-number>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="category" nzRequired>类型</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <nz-radio-group formControlName="category">
+                <label nz-radio nzValue="1">菜单</label>
+                <label nz-radio nzValue="2">按钮</label>
+            </nz-radio-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="remark">备注</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <textarea id="remark" nz-input formControlName="remark" [nzAutosize]="{ minRows: 2}"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="drawer-footer-bottom">
+    <button nz-button type="button" (click)="close()">关闭</button>
+    <button nz-button type="submit" nzType="primary" (click)="saveAndClose()">保存</button>
+    <button nz-button type="submit" nzType="primary" (click)="saveAndContinue()" *ngIf="drawer.nzTitle==='新建'">保存并继续
+    </button>
+</div>
+

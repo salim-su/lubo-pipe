@@ -1,0 +1,52 @@
+:host {
+    ::ng-deep {
+        .alain-default__nav-item{
+            color: rgba(0, 0, 0, 0.65) !important;
+        }
+        .icon{
+            color: #fff;
+            font-size: 22px;
+        }
+        .pl-list{
+            //width: 100%;
+            width: 70px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pl-item{
+            outline-style: none;
+            display: flex;
+        }
+    }
+}
+.platForm-actived .icon{
+    color: #2199f0 !important;
+    position: relative;
+}
+.platForm-actived .icon:before{
+    content: '';
+    display: block;
+    width: 4px;
+    height: 40%;
+    background-color: #2199f0;
+    position: absolute;
+    top: 16px;
+    left: 0px;
+}
+.showItem:hover{
+    color: #239af1;
+}
+.showItem{
+    color: #ececec;
+}
+.table-row-actived{
+    background-color: #2E394B;
+    i{
+        color: #21A4F6;
+    }
+    .showItem{
+        color: #21A4F6;
+    }
+}

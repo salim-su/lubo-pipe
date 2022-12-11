@@ -1,0 +1,100 @@
+<div class="flex fullscreen flex-column">
+    <div class="flex justify-content-end pr50 radioStyle">
+        <nz-radio-group [(ngModel)]="searchData.dateType" nzSize="large" style="color: #0edbe5" (ngModelChange)="radioChange($event)">
+            <label nz-radio nzValue="day"> 日 </label>
+            <label nz-radio nzValue="month"> 月 </label>
+            <label nz-radio nzValue="year"> 年 </label>
+        </nz-radio-group>
+    </div>
+
+    <div class="w mb30 flex h300" style="background-color: rgba(9, 1, 22, 0.6)">
+        <div class="w">
+            <div class="flex-column flex pl20">
+                <div class="cfff mt20 fs16">智慧用电能耗统计</div>
+                <img src="./assets/img/split.png" alt="" class="imgs" />
+            </div>
+            <div id="alarm_spss" class="w alarm_spss"></div>
+        </div>
+    </div>
+
+    <div class="w mb30 flex pt30" style="background-color: rgba(9, 1, 22, 0.6)">
+        <div class="pl10">
+            <div class="alarm-type">
+                <div class="cfff fw fs16 tc ls2 pt5 mb10">设备列表</div>
+
+                <div style="width: 95%; height: 92%; overflow: auto">
+                    <div class="pt20">
+                        <ng-container *ngFor="let item of deviceList">
+                            <div class="cfff pl100 mb10 cp" (click)="clickItem(item)">
+                                <span class="itemlist fs14" [ngClass]="item?.id == selectedItem?.id ? 'itemlist-active' : ''">{{
+                                    item?.name
+                                }}</span>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex1 flex justify-content-end pr10">
+            <div class="tableBD">
+                <nz-table
+                    class="fix-table even-table"
+                    #table
+                    [nzNoResult]="noResultTemplate"
+                    [nzShowSizeChanger]="true"
+                    [nzFrontPagination]="false"
+                    [nzShowTotal]="totalTemplate"
+                    [nzTotal]="pageInfo.total"
+                    [(nzPageIndex)]="pageInfo.pi"
+                    [(nzPageSize)]="pageInfo.ps"
+                    [nzData]="dataList"
+                    [nzLoading]="pageInfo.loading"
+                    (nzPageIndexChange)="loadDeviceUpData()"
+                >
+                    <thead>
+                        <tr>
+                            <th class="w170">采集时间</th>
+                            <th>继电器状态</th>
+                            <th>A相温度</th>
+                            <th>B相温度</th>
+                            <th>C相温度</th>
+                            <th>零序温度</th>
+                            <th>漏流</th>
+                            <th>A相电压</th>
+                            <th>B相电压</th>
+                            <th>C相电压</th>
+                            <th>A相电流</th>
+                            <th>B相电流</th>
+                            <th>C相电流</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of table.data; let i = index">
+                            <td>{{ data.createTime | date: 'yyyy-MM-dd HH:mm' }}</td>
+                            <td>{{ data.jsonData.relayStatus == '00' ? '正常' : '脱扣' }}</td>
+                            <td>{{ data.jsonData.aTemperature ? data.jsonData.aTemperature : '0' }}℃</td>
+                            <td>{{ data.jsonData.bTemperature ? data.jsonData.bTemperature : '0' }}℃</td>
+                            <td>{{ data.jsonData.cTemperature ? data.jsonData.cTemperature : '0' }}℃</td>
+                            <td>{{ data.jsonData.nTemperature ? data.jsonData.nTemperature : '0' }}℃</td>
+                            <td>{{ data.jsonData.leakage ? data.jsonData.leakage : '0' }}mA</td>
+                            <td>{{ data.jsonData.aVoltage ? data.jsonData.aVoltage : '0' }}V</td>
+                            <td>{{ data.jsonData.bVoltage ? data.jsonData.bVoltage : '0' }}V</td>
+                            <td>{{ data.jsonData.cVoltage ? data.jsonData.cVoltage : '0' }}V</td>
+                            <td>{{ data.jsonData.aElectricity ? data.jsonData.aElectricity : '0' }}mA</td>
+                            <td>{{ data.jsonData.bElectricity ? data.jsonData.bElectricity : '0' }}mA</td>
+                            <td>{{ data.jsonData.cElectricity ? data.jsonData.cElectricity : '0' }}mA</td>
+                        </tr>
+                    </tbody>
+                    <ng-template #totalTemplate let-total class="sysy"> 共 {{ total }} 条数据</ng-template>
+                    <ng-template #noResultTemplate>
+                        <div class="flex flex-column align-items-center">
+                            <img src="../../../../../assets/img/no-result.png" alt="" class="no-result-img" />
+                            <span style="color: #7a7e8b">暂无数据</span>
+                        </div>
+                    </ng-template>
+                </nz-table>
+            </div>
+        </div>
+    </div>
+</div>

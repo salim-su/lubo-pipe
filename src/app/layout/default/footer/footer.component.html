@@ -1,0 +1,31 @@
+<div class="flex justify-content-center">
+<!--    <div class="bottom-l mb20" style="align-self: flex-end"></div>-->
+    <div class="c">
+        <div class="bottom-c flex align-items-baseline">
+            <div
+                [class.item-sel]="this.sel?.id === item?.id"
+                [ngClass]="item?.source"
+                class="img-item img-item-shouye tc"
+                (click)="clickItem(item)"
+                *ngFor="let item of menus"
+            >
+<!--                <div class="mt40 fs14">{{ item?.text }}</div>-->
+                <div class="fs16 pt10 title">{{ item?.text }}</div>
+            </div>
+        </div>
+<!--        <div class="bottom-c-bottom" [@main-router-b]="showBCB">-->
+<!--            <img src="./assets/img/shou.png" alt="" class="cp" (click)="toggle()" />-->
+<!--            <div class="flex w mt40">-->
+<!--                <div-->
+<!--                    [ngClass]="{ 'item-sel-children': selChildren?.id === i?.id }"-->
+<!--                    class="img-item tc"-->
+<!--                    (click)="clickItemChildren(i)"-->
+<!--                    *ngFor="let i of childrenMenu"-->
+<!--                >-->
+<!--                    <div class="fw">{{ i?.text }}</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+<!--    <div class="bottom-r align-self-end mb20"></div>-->
+</div>

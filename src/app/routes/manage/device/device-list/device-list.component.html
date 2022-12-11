@@ -1,0 +1,125 @@
+<div class="flex fullscreen">
+    <div class="pl10">
+        <div class="alarm-type">
+            <div class="cfff fw fs16 tc ls2 pt5">所属区域</div>
+            <div class="pt20">
+                <ng-container *ngFor="let item of areaDevicesList">
+                    <div class="cfff pl100 mb10 fs14">
+                        <span
+                            class="cp itemlist"
+                            (click)="clickitem(item)"
+                            [ngClass]="item?.id == selectedItem['id'] ? 'itemlist-active' : ''"
+                            >{{ item?.name }} --{{ item?.deviceAmount }}</span
+                        >
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div class="flex1 flex justify-content-end pr10">
+        <div class="tableBD">
+            <form nz-form class="w flex" [formGroup]="form">
+                <div nz-row w>
+                    <div nz-col [nzSpan]="24">
+                        <nz-form-item class="mb10 flex">
+                            <nz-form-label nzFor="name" style="margin-left: 27px">
+                                <span class="cfff">设备名称</span>
+                            </nz-form-label>
+                            <nz-form-control>
+                                <input style="width: 250px" nz-input placeholder="设备名称" formControlName="name" />
+                            </nz-form-control>
+
+                            <div
+                                title="查询"
+                                (click)="search()"
+                                style="width: 30px; height: 30px; background-color: #15afb2; border-radius: 5px"
+                                class="justify-content-center align-items-center cp ml20 flex"
+                            >
+                                <img src="./assets/img/search.svg" alt="" style="width: 15px; height: 15px" />
+                            </div>
+
+                            <div
+                                title="添加"
+                                (click)="add()"
+                                style="width: 30px; height: 30px; background-color: #15afb2; border-radius: 5px"
+                                class="justify-content-center align-items-center cp ml15 flex"
+                            >
+                                <img src="./assets/img/add.svg" alt="" style="width: 15px; height: 15px" />
+                            </div>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </form>
+            <nz-table
+                class="fix-table even-table"
+                #table
+                [nzNoResult]="noResultTemplate"
+                [nzShowSizeChanger]="true"
+                [nzFrontPagination]="false"
+                [nzShowTotal]="totalTemplate"
+                [nzTotal]="pageInfo.total"
+                [(nzPageIndex)]="pageInfo.pi"
+                [(nzPageSize)]="pageInfo.ps"
+                [nzData]="dataList"
+                [nzLoading]="pageInfo.loading"
+                (nzPageIndexChange)="loadDeviceListByArea()"
+            >
+                <thead>
+                    <tr>
+                        <th>设备名称</th>
+                        <th>设备类型</th>
+                        <th>当前状态</th>
+                        <th>所在地点</th>
+                        <th>是否监控</th>
+                        <th nzWidth="150px">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of table.data; let i = index">
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.deviceCategoryName }}</td>
+                        <td>
+                            <div ml10 *ngIf="data.connectionStatus == 0" posr>
+                                <img
+                                    src="../assets/img/lixiandian.svg"
+                                    alt=""
+                                    style="width: 80px; position: absolute; top: -28px; left: -50px"
+                                />
+                                <span style="color: #cccccc">离线</span>
+                            </div>
+                            <div ml10 *ngIf="data.connectionStatus == 1" posr>
+                                <img
+                                    src="../assets/img/zaixiandian.svg"
+                                    alt=""
+                                    style="width: 80px; position: absolute; top: -28px; left: -50px"
+                                />
+                                <span style="color: #00ffff">在线</span>
+                            </div>
+                        </td>
+                        <td>{{ data.installLocation }}</td>
+                        <td>{{ data.isMonitor == 0 ? '否' : '是' }}</td>
+                        <td>
+                            <a (click)="edit(data)">编辑</a>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <a
+                                class="line-remove"
+                                nz-popconfirm
+                                nzPopconfirmTitle="确认删除吗?"
+                                nzPopconfirmPlacement="top"
+                                (nzOnConfirm)="remove(data)"
+                                >删除</a
+                            >
+                        </td>
+                    </tr>
+                </tbody>
+                <ng-template #totalTemplate let-total class="sysy"> 共 {{ total }} 条数据</ng-template>
+                <ng-template #noResultTemplate>
+                    <div class="flex flex-column align-items-center">
+                        <img src="../../../../../assets/img/no-result.png" alt="" class="no-result-img" />
+                        <span style="color: #7a7e8b">暂无数据</span>
+                    </div>
+                </ng-template>
+            </nz-table>
+        </div>
+    </div>
+</div>

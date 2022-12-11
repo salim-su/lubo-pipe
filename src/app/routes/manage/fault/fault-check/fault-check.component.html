@@ -1,0 +1,38 @@
+<div class="bigModal">
+    <div flex style="margin-top: 20px;justify-content: center;flex-direction: column;">
+        <div class="dialog-title cfff">查看</div>
+        <nz-radio-group [nzDisabled]="true" [(ngModel)]="radioValue" nzSize="large" style="color: #0edbe5">
+            <label nz-radio nzValue="wubao">误报</label>
+            <label nz-radio nzValue="paigong">派工维修</label>
+            <label nz-radio nzValue="yichuzhi">已处置</label>
+        </nz-radio-group>
+    </div>
+
+    <div class="mb30" style="width: 100%;border-bottom: 1px dashed #0ddfe6;margin-top: 30px;"></div>
+
+    <div style="width: 300px;">
+
+
+        <nz-form-item class="mb20 flex" *ngIf="radioValue == 'paigong'">
+            <!--            <nz-form-label nzFor="name"  style="margin-left: 27px;" >-->
+            <!--                <span class="cfff">责任人</span>-->
+            <!--            </nz-form-label>-->
+            <nz-form-control>
+                <input style="width: 250px;" nz-input placeholder="责任人" [(ngModel)]="zerenrenValue"/>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="mb10 flex" *ngIf="radioValue == 'paigong'">
+            <nz-form-control>
+                <nz-date-picker style="width: 250px;" [(ngModel)]="paigongDate" *ngIf="radioValue == 'paigong'"
+                                nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="派工时间"></nz-date-picker>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="mb30 flex" *ngIf="radioValue == 'yichuzhi'">
+            <nz-form-control>
+                <input [(ngModel)]="yijianValue" *ngIf="radioValue == 'yichuzhi'" mt40 w nz-input placeholder="处置意见"/>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+</div>

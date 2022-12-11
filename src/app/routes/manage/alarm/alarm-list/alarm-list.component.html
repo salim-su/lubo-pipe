@@ -1,0 +1,58 @@
+<div class="flex fullscreen">
+    <div class="flex1 flex justify-content-center pr10">
+        <div class="tableBD">
+            <nz-table
+                class="fix-table even-table"
+                #table
+                [nzNoResult]="noResultTemplate"
+                [nzShowSizeChanger]="true"
+                [nzFrontPagination]="false"
+                [nzShowTotal]="totalTemplate"
+                [nzTotal]="pageInfo.total"
+                [(nzPageIndex)]="pageInfo.pi"
+                [(nzPageSize)]="pageInfo.ps"
+                [nzData]="dataList"
+                [nzLoading]="pageInfo.loading"
+                (nzPageIndexChange)="load()"
+            >
+                <thead>
+                    <tr>
+                        <th>设备名称</th>
+                        <th>报警类型</th>
+                        <th>报警时间</th>
+                        <th>状态</th>
+                        <th nzWidth="150px">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of table.data; let i = index">
+                        <td>{{ data.deviceName }}</td>
+                        <td>{{ data.alarmCategoryText }}</td>
+                        <td>{{ data.createTime | date: 'yyyy-MM-dd HH:mm' }}</td>
+                        <td>
+                            <span *ngIf="data.status == 0">
+                                <span style="color: #fcb24b">待处理</span>
+                            </span>
+
+                            <span *ngIf="data.status !== 0">
+                                <span>已处理</span>
+                            </span>
+                        </td>
+                        <td>
+                            <a *ngIf="data.status == 0" class="line-remove" (click)="pross(data)">处理</a>
+                            <!--                        <nz-divider nzType="vertical"></nz-divider>-->
+                            <a *ngIf="data.status != 0" (click)="check(data)">查看</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <ng-template #totalTemplate let-total class="sysy"> 共 {{ total }} 条数据</ng-template>
+                <ng-template #noResultTemplate>
+                    <div class="flex flex-column align-items-center">
+                        <img src="../../../../../assets/img/no-result.png" alt="" class="no-result-img" />
+                        <span style="color: #7a7e8b">暂无数据</span>
+                    </div>
+                </ng-template>
+            </nz-table>
+        </div>
+    </div>
+</div>
