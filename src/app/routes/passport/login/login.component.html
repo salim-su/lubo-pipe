@@ -1,11 +1,14 @@
-<form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form" class="loginInForm flex" [nzLayout]="'vertical'">
-    <div class="loginLeft"></div>
+<div class="login-title mb50">
 
-    <div class="flex1 login-right">
+</div>
+
+<form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form" class="loginInForm flex" [nzLayout]="'vertical'">
+
+    <div class="flex1 login-right flex flex-column align-items-center mt20">
         <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
         <!--        <h2 class="ls2 tc" style="font-family: impact">天津港第四港埠智能管理平台</h2>-->
 
-        <nz-form-item class="mt30">
+        <nz-form-item class="">
             <!--            <nz-form-label>账号</nz-form-label>-->
             <nz-form-control>
                 <!--        <nz-form-control [nzErrorTip]="'请输入用户名'">-->
@@ -14,7 +17,7 @@
                 </nz-input-group>
             </nz-form-control>
         </nz-form-item>
-        <nz-form-item class="mt30">
+        <nz-form-item class="">
             <!--            <nz-form-label>密码</nz-form-label>-->
 
             <nz-form-control>
@@ -36,10 +39,11 @@
                 </nz-input-group>
             </nz-form-control>
         </nz-form-item>
-        <nz-form-item class="mt50">
-            <button class="h60" nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="http.loading" nzBlock>
-                <span class="ls2">立即登录</span>
-            </button>
+        <nz-form-item class="login-input cp mt10" (click)="submit()">
+            <span class="ls2 cfff mt5 fs16">登 录</span>
+<!--            <button class="h60" nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="http.loading" nzBlock>-->
+<!--                <span class="ls2">立即登录</span>-->
+<!--            </button>-->
         </nz-form-item>
     </div>
 </form>

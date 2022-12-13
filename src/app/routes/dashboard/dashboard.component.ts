@@ -3,7 +3,6 @@ import {salimAnimation} from '../../shared/utils/animate';
 import {DeviceService} from '../service/manage/device.service';
 import {DashboardService} from './dashboard.service';
 import {NzModalService} from 'ng-zorro-antd/modal';
-import {DeptEditComponent} from '../system/dept/dept-edit/dept-edit.component';
 import {ModalDashboardComponent} from './modal-dashboard/modal-dashboard.component';
 
 @Component({
