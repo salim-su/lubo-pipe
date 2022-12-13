@@ -55,7 +55,7 @@ export class StartupService {
             }),
         ).subscribe(([ menus, buttons]) => {
                 this.settingService.setApp({
-                    name: '联盟国际智慧用电管理平台',
+                    name: '天津港轮驳有限公司地下管网智能检测系统',
                     description: '',
                 });
                 // this.settingService.setUser({
