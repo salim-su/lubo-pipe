@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import { ModalHelper } from '@delon/theme';
-import { AlarmService } from '../../../service/manage/alarm.service';
-import { AlarmProssComponent } from '../../../manage/alarm/alarm-pross/alarm-pross.component';
-import { AlarmCheckComponent } from '../../../manage/alarm/alarm-check/alarm-check.component';
-import { PipeService } from '../../pipe.service';
+import {ModalHelper} from '@delon/theme';
+import {PipeService} from '../../pipe.service';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-pipe-alarm-list',
     templateUrl: './pipe-alarm-list.component.html',
-    styles: [],
+    styleUrls: ['./pipe-alarm-list.component.less'],
 })
 export class PipeAlarmListComponent implements OnInit {
+    form: FormGroup;
     pageInfo = {
         pi: 1,
         ps: 10,
@@ -19,76 +18,14 @@ export class PipeAlarmListComponent implements OnInit {
         loading: false,
     };
     dataList: any;
-    alarmType = [
-        {
-            key: 1,
-            name: '漏电报警',
-        },
-        {
-            key: 2,
-            name: 'A相温度报警',
-        },
-        {
-            key: 3,
-            name: 'B相温度报警',
-        },
-        {
-            key: 4,
-            name: 'C相温度报警',
-        },
-        {
-            key: 5,
-            name: '零序温度报警',
-        },
-        {
-            key: 6,
-            name: '电流异常',
-        },
-    ];
-    dateSearch = [
-        {
-            key: '1',
-            name: '近一周',
-            dateBegin: moment().subtract(1, 'week').format('YYYY-MM-DD'),
-            dateEnd: moment().format('YYYY-MM-DD'),
-        },
-        {
-            key: '2',
-            name: '近一个月',
-            dateBegin: moment().subtract(1, 'month').format('YYYY-MM-DD'),
-            dateEnd: moment().format('YYYY-MM-DD'),
-        },
-        {
-            key: '3',
-            name: '近三个月',
-            dateBegin: moment().subtract(3, 'month').format('YYYY-MM-DD'),
-            dateEnd: moment().format('YYYY-MM-DD'),
-        },
-        {
-            key: '4',
-            name: '近半年',
-            dateBegin: moment().subtract(6, 'month').format('YYYY-MM-DD'),
-            dateEnd: moment().format('YYYY-MM-DD'),
-        },
-        {
-            key: '5',
-            name: '近一年',
-            dateBegin: moment().subtract(1, 'year').format('YYYY-MM-DD'),
-            dateEnd: moment().format('YYYY-MM-DD'),
-        },
-    ];
-    selectedItem = {
-        key: '',
-        name: '',
-    };
-    selectedDateSearch = {
-        key: '',
-        name: '',
-        dateBegin: '',
-        dateEnd: '',
-    };
 
-    constructor(private modal: ModalHelper, private alarmService: AlarmService, private pipeService: PipeService) {}
+    constructor(private modal: ModalHelper, private pipeService: PipeService, private fb: FormBuilder) {
+        const beginTime = moment().startOf('month').toDate();
+        const endTime = new Date();
+        this.form = this.fb.group({
+            searchDate: new FormControl({ value: [beginTime, endTime], disabled: false }),
+        });
+    }
 
     ngOnInit(): void {
         this.load();
@@ -98,76 +35,23 @@ export class PipeAlarmListComponent implements OnInit {
         const params = {
             current: this.pageInfo.pi,
             size: this.pageInfo.ps,
-            // alarmCategory: this.selectedItem.key,
-            // alarmBeginTime: this.selectedDateSearch.dateBegin,
-            // alarmEndTime: this.selectedDateSearch.dateEnd,
         };
 
+        if (this.form.value.searchDate.length > 0) {
+            params['beginTime'] = moment(this.form.value.searchDate[0]).format('YYYY-MM-DD HH:mm:ss');
+            params['endTime'] = moment(this.form.value.searchDate[1]).format('YYYY-MM-DD HH:mm:ss');
+        }
+        console.log(params);
+
         this.pageInfo.loading = true;
-        this.pipeService.devicePage(params).subscribe((res) => {
+        this.pipeService.alarmPage(params).subscribe((res) => {
             this.dataList = res.records;
             this.pageInfo.total = res.total;
             this.pageInfo.loading = false;
         });
     }
 
-    clickitem(item) {
-        if (item.name === this.selectedItem.name) {
-            this.selectedItem = {
-                key: '',
-                name: '',
-            };
-        } else {
-            this.selectedItem = item;
-        }
+    search() {
         this.load();
-    }
-
-    clickDateSearchItem(item) {
-        if (item.name === this.selectedDateSearch.name) {
-            this.selectedDateSearch = {
-                key: '',
-                name: '',
-                dateBegin: '',
-                dateEnd: '',
-            };
-        } else {
-            this.selectedDateSearch = item;
-        }
-        this.load();
-    }
-
-    pross(record) {
-        this.modal
-            .open(
-                AlarmProssComponent,
-                {
-                    record,
-                },
-                600,
-                {
-                    nzClassName: 'alarmModalStyle',
-                },
-            )
-            .subscribe((data) => {
-                this.load();
-            });
-    }
-
-    check(record) {
-        this.modal
-            .open(
-                AlarmCheckComponent,
-                {
-                    record,
-                },
-                600,
-                {
-                    nzClassName: 'alarmModalStyle',
-                },
-            )
-            .subscribe((data) => {
-                this.load();
-            });
     }
 }

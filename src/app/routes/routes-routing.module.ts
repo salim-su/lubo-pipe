@@ -23,22 +23,10 @@ const routes: Routes = [
             { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
             { path: 'dashboard', component: DashboardComponent, data: { title: '首页', titleI18n: '首页' } },
             {
-                path: 'manage',
-                canActivate: [SimpleGuard],
-                data: { title: '管理' },
-                loadChildren: () => import('./manage/manage.module').then((m) => m.ManageModule),
-            },
-            {
                 path: 'pipe',
                 canActivate: [SimpleGuard],
                 data: { title: '地下管网' },
                 loadChildren: () => import('./pipe/pipe.module').then((m) => m.PipeModule),
-            },
-            {
-                path: 'auth',
-                canActivate: [SimpleGuard],
-                data: { title: '权限' },
-                loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
             },
         ],
     },

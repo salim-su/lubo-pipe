@@ -1,1 +1,29 @@
-<p>locate-list works!</p>
+<div class="flex fullscreen">
+    <div class="flex1 flex justify-content-center pr10">
+        <div class="tableBD">
+
+            <form nz-form class="w flex" [formGroup]="form">
+                <div nz-row w class="mr20">
+                    <div nz-col [nzSpan]="24" class="flex">
+                        <nz-form-item class="mb10" >
+                            <nz-form-label [nzSpan]="6" nzFor="deviceNo" C1B2A5A>
+                                <span class="cfff">设备名称</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSpan]="18">
+                                <nz-select class="w300" formControlName="deviceNo" [nzAllowClear]="false" nzShowSearch [nzServerSearch]="false">
+                                    <nz-option *ngFor="let item of deviceList" [nzValue]="item.no" nzLabel="{{ item.name }}"> </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                    </div>
+                </div>
+            </form>
+
+            <div class="map cfff">
+                地图地图
+            </div>
+
+        </div>
+    </div>
+</div>

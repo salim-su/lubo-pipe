@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as echarts from 'echarts';
+import * as moment from 'moment';
+import {PipeService} from '../../pipe/pipe.service';
 
 @Component({
     selector: 'app-modal-dashboard',
@@ -10,19 +12,44 @@ export class ModalDashboardComponent implements OnInit {
     @Input()
     params;
 
-    constructor() {
+    dataList = [];
+
+    constructor(private pipeService: PipeService) {
     }
 
     ngOnInit(): void {
-        this.loadChart('');
+        const params = {
+            beginTime: moment().subtract(1, 'day').format('YYYY-MM-DD HH:mm:ss'),
+            endTime: moment().format('YYYY-MM-DD HH:mm:ss'),
+            size: 20,
+            current: 1,
+            deviceNo: '3ce4976e-64e9-4db7-af98-e964c702cd1d'
+        };
+
+        this.pipeService.upDataLogPage(params).subscribe(res => {
+            console.log(res?.records);
+            this.dataList = res?.records;
+            if (this.dataList.length > 0) {
+                this.dataList.forEach((e) => {
+                    e['jsonData'] = JSON.parse(e['jsonData']);
+                    e['val'] = e['jsonData']['meterValue'];
+                });
+            }
+            this.loadChart(this.dataList);
+
+        });
+
+
     }
 
     loadChart(data) {
+        console.log(data);
         const myChart = echarts.init(document.getElementById('chart'));
-        const datarr = [120, 200, 150, 80, 70, 110, 130, 130, 130, 130, 130, 130];
+        const datarr = data.map(p => p.val);
         const useArr = [];
         datarr.forEach(e => {
-            if (e < 140) {
+            /*超标*/
+            if (e < 3000) {
                 useArr.push(e);
             } else {
                 const a = {
@@ -43,7 +70,7 @@ export class ModalDashboardComponent implements OnInit {
             },
             xAxis: {
                 type: 'category',
-                data: ['13:00', '13:00', '13:00', '13:00', '13:00', '13:00', '13:00', '13:00', '13:00', '13:00', '13:00', '13:00'],
+                data: data.map(p => moment(p.createTime).format('HH:mm')),
                 axisTick: {
                     alignWithLabel: true,
                 },

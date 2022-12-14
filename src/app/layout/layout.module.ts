@@ -29,11 +29,9 @@ import { PlatformSidebarComponent } from './default/sidebar/sidebar.component';
 // passport
 import { LayoutPassportComponent } from './passport/passport.component';
 import { PlatformFooterComponent } from './default/footer/footer.component';
-import { RightPanelComponent } from '../routes/components/right-panel/right-panel.component';
-import { LeftPanelComponent } from '../routes/components/left-panel/left-panel.component';
 import { SharedModule } from '@shared';
 
-const COMPONENTS = [LayoutBasicComponent, LayoutBlankComponent, LayoutDefaultQxComponent, PlatformSidebarComponent, PlatformHeaderComponent, PlatformFooterComponent, RightPanelComponent, LeftPanelComponent];
+const COMPONENTS = [LayoutBasicComponent, LayoutBlankComponent, LayoutDefaultQxComponent, PlatformSidebarComponent, PlatformHeaderComponent, PlatformFooterComponent];
 
 const HEADERCOMPONENTS = [
     HeaderSearchComponent,

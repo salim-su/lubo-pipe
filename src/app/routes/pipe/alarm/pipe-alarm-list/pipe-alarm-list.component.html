@@ -1,6 +1,29 @@
 <div class="flex fullscreen">
     <div class="flex1 flex justify-content-center pr10">
         <div class="tableBD">
+
+            <form nz-form class="w flex mb10" [formGroup]="form">
+                <div nz-row w class="mr20">
+                    <div nz-col [nzSpan]="24">
+                        <nz-form-item class="mb10 flex">
+                            <nz-form-label nzFor="name" style="margin-left: 27px">
+                                <span class="cfff">日期</span>
+                            </nz-form-label>
+                            <nz-form-control>
+                                <nz-range-picker
+                                    [nzShowTime]="true"
+                                    formControlName="searchDate"
+                                    [nzAllowClear]="false"
+                                ></nz-range-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+                <button  nz-button nzType="primary" class="ml5" (click)="search()">
+                    查询
+                </button>
+            </form>
+
             <nz-table
                 class="fix-table even-table"
                 #table
@@ -17,32 +40,25 @@
             >
                 <thead>
                     <tr>
-                        <th>设备名称</th>
-                        <th>报警类型</th>
+                        <th nzWidth="80px">序号</th>
                         <th>报警时间</th>
-                        <th>状态</th>
-                        <th nzWidth="150px">操作</th>
+                        <th>设备类别</th>
+                        <th>报警设备名称</th>
+                        <th>报警内容</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of table.data; let i = index">
-                        <td>{{ data.deviceName }}</td>
-                        <td>{{ data.alarmCategoryText }}</td>
-                        <td>{{ data.createTime | date: 'yyyy-MM-dd HH:mm' }}</td>
-                        <td>
-                            <span *ngIf="data.status == 0">
-                                <span style="color: #fcb24b">待处理</span>
-                            </span>
+                        <td>{{ i + 1 + (this.pageInfo.pi - 1) * this.pageInfo.ps }}</td>
 
-                            <span *ngIf="data.status !== 0">
-                                <span>已处理</span>
-                            </span>
-                        </td>
-                        <td>
-                            <a *ngIf="data.status == 0" class="line-remove" (click)="pross(data)">处理</a>
-                            <!--                        <nz-divider nzType="vertical"></nz-divider>-->
-                            <a *ngIf="data.status != 0" (click)="check(data)">查看</a>
-                        </td>
+                        <td>{{ data.createTime | date: 'yyyy-MM-dd HH:mm' }}</td>
+
+                        <td>{{ data.deviceCategoryName }}</td>
+
+                        <td>{{ data.deviceName }}</td>
+
+                        <td>{{ data.jsonData }}</td>
+
                     </tr>
                 </tbody>
                 <ng-template #totalTemplate let-total class="sysy"> 共 {{ total }} 条数据</ng-template>

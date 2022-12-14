@@ -4,29 +4,26 @@
             width: 1920px;
             height: calc(100vh - 200px);
             //background-color: #0D6F87;
-            padding: 10px 30px 20px 30px;
-        }
-        .fullscreen {
-            width: 1920px;
-            height: calc(100vh - 200px);
-            //background-color: #0D6F87;
             padding: 20px;
         }
         .alarm-type {
             width: 356px;
             height: 228px;
             background-image: url('../../../../../assets/img/alarm-type.png');
+            background-size: contain;
         }
         .alarm-time {
             width: 356px;
             height: 277px;
             background-image: url('../../../../../assets/img/alarm-time.png');
+            background-size: contain;
         }
 
         .itemlist-active {
             background-image: url('../../../../../assets/img/kuang1.svg');
             color: #0efbfd !important;
             font-weight: bold;
+            background-size: contain;
         }
         .itemlist {
             width: 50%;
@@ -38,24 +35,24 @@
             color: #cfced1;
         }
         .tableBD {
-            width: 1483px;
-            height: 717px;
+            width: 1729px;
+            height: 744px;
             background-image: url('../../../../../assets/img/tablebd.png');
-            padding: 20px;
-            background-size: cover;
+            padding: 50px;
+            background-size: contain;
         }
         .ant-table-thead > tr > th {
             border-bottom: 0 !important;
-            background-color: rgba(9, 109, 217, 0.17) !important;
+            //background-color: rgba(9, 109, 217, 0.17) !important;
         }
         .ant-table {
             background-color: transparent !important;
-            border: 1px solid #09576d;
+            //border: 1px solid #09576d;
         }
-        .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-            background-color: rgba(9, 109, 217, 0.17) !important;
-            border-color: rgba(9, 109, 217, 0.17) !important;
-        }
+        //.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        //    background-color: rgba(9, 109, 217, 0.17) !important;
+        //    border-color: rgba(9, 109, 217, 0.17) !important;
+        //}
         .ant-select {
             color: #bfbfbf !important;
         }
@@ -65,16 +62,37 @@
         .ant-table tfoot > tr > td {
             padding: 14px !important;
         }
-        .addBtn {
-            width: 30px;
-            height: 30px;
-            background-color: #15afb2;
-            border-radius: 5px;
+        .ant-picker {
+            background: unset !important;
+            //border: 1px solid #15AFB2;
 
-            img {
-                width: 15px;
-                height: 15px;
-            }
+            //background-color: #07143a;
+            opacity: 0.8;
+            outline-style: none;
+            color: #fff !important;
+            border: 1px solid #3e75b7;
+        }
+        .ant-picker-input > input {
+            color: unset !important;
+        }
+        .ant-input {
+            background: transparent !important;
+            border: 1px solid #15afb2;
+            color: #ccc !important;
+        }
+        .anticon-calendar {
+            color: #3e75b7;
+        }
+        .ant-select-selector {
+            background-color: transparent !important;
+            border: 1px solid #3e75b7 !important;
+        }
+        .w300{
+            width: 300px;
+        }
+        .map{
+            height: 600px;
+            border: 1px solid #3e75b7;
         }
     }
 }

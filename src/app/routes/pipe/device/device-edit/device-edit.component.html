@@ -1,0 +1,66 @@
+<div class="flex fullscreen flex-column">
+    <div style="" class="w flex mt20">
+        <form [formGroup]="form" class="w pr50">
+            <nz-row>
+                <nz-col [nzSpan]="8">
+                    <nz-form-item nzFlex>
+                        <nz-form-label nzFor="name" [nzSpan]="6">
+                            <span class="cfff">设备名称</span>
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input formControlName="name" />
+                            <nz-form-explain *ngIf="form.get('name').dirty && form.get('name').errors">
+                                <ng-container *ngIf="form.get('name').hasError('required')"> 该输入项为必输项 </ng-container>
+                                <ng-container *ngIf="form.get('name').hasError('maxlength')"> 输入长度小于100 </ng-container>
+                            </nz-form-explain>
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-col>
+
+                <nz-col [nzSpan]="8">
+                    <nz-form-item nzFlex>
+                        <nz-form-label nzFor="no" [nzSpan]="6">
+                            <span class="cfff">设备编号</span>
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input formControlName="no" />
+                            <nz-form-explain *ngIf="form.get('no').dirty && form.get('no').errors">
+                                <ng-container *ngIf="form.get('no').hasError('required')"> 该输入项为必输项 </ng-container>
+                                <ng-container *ngIf="form.get('no').hasError('maxlength')"> 输入长度小于100 </ng-container>
+                            </nz-form-explain>
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-col>
+                <nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="6" nzFor="deviceCategoryId" C1B2A5A>
+                            <span class="cfff">设备类别</span>
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <nz-select formControlName="deviceCategoryId" nzAllowClear nzShowSearch [nzServerSearch]="false">
+                                <nz-option *ngFor="let item of deviceType" [nzValue]="item.id" nzLabel="{{ item.name }}"> </nz-option>
+                            </nz-select>
+                            <nz-form-explain *ngIf="form.get('deviceCategoryId').dirty && form.get('deviceCategoryId').errors">
+                                <ng-container *ngIf="form.get('deviceCategoryId').hasError('required')"> 该输入项为必输项 </ng-container>
+                            </nz-form-explain>
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-col>
+            </nz-row>
+
+        </form>
+    </div>
+
+    <div class="flex justify-content-end pr50">
+        <span
+            class="p10 cfff cp mr15"
+            style="background-color: transparent; border-radius: 30px; padding: 8px 18px 8px 18px; border: 1px solid #495469"
+            (click)="cancel()"
+            >取消</span
+        >
+
+        <span class="p10 cfff cp" style="background-color: #2777af; border-radius: 30px; padding: 8px 18px 8px 18px" (click)="onSubmit()"
+            >提交</span
+        >
+    </div>
+</div>

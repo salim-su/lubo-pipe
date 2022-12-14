@@ -1,6 +1,15 @@
 <div class="flex fullscreen">
+
+
     <div class="flex1 flex justify-content-center pr10">
+
         <div class="tableBD">
+            <button nz-button nzType="primary" class="float-right mb20" (click)="add()">
+                <span nz-icon nzType="plus"></span>
+                添 加
+            </button>
+
+
             <nz-table
                 class="fix-table even-table"
                 #table
@@ -23,6 +32,7 @@
                         <th>设备类型</th>
                         <!--                    <th>报警时间</th>-->
                         <th>设备状态</th>
+                        <th nzWidth="150px">操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,6 +45,19 @@
                         <td>
                             <span *ngIf="data?.status === 'OFFLINE'">离线</span>
                             <span *ngIf="data?.status === 'ONLINE'">在线</span>
+                        </td>
+
+                        <td>
+                            <a (click)="edit(data)" style="color: #92B5DF">编辑</a>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <a
+                                class="line-remove"
+                                nz-popconfirm
+                                nzPopconfirmTitle="确认删除吗?"
+                                nzPopconfirmPlacement="top"
+                                (nzOnConfirm)="remove(data)"
+                            >删除</a
+                            >
                         </td>
                     </tr>
                 </tbody>
