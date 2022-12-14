@@ -1,0 +1,51 @@
+<div class="flex fullscreen">
+    <div class="flex1 flex justify-content-center pr10">
+        <div class="tableBD">
+            <nz-table
+                class="fix-table even-table"
+                #table
+                [nzNoResult]="noResultTemplate"
+                [nzShowSizeChanger]="true"
+                [nzFrontPagination]="false"
+                [nzShowTotal]="totalTemplate"
+                [nzTotal]="pageInfo.total"
+                [(nzPageIndex)]="pageInfo.pi"
+                [(nzPageSize)]="pageInfo.ps"
+                [nzData]="dataList"
+                [nzLoading]="pageInfo.loading"
+                (nzPageIndexChange)="load()"
+            >
+                <thead>
+                    <tr>
+                        <th nzWidth="80px">序号</th>
+                        <th>设备名称</th>
+                        <th>设备编号</th>
+                        <th>设备类型</th>
+                        <!--                    <th>报警时间</th>-->
+                        <th>设备状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of table.data; let i = index">
+                        <td>{{ i + 1 + (this.pageInfo.pi - 1) * this.pageInfo.ps }}</td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.no }}</td>
+                        <td>{{ data.deviceCategoryName }}</td>
+                        <!--                    <td>{{ data.createTime | date: 'yyyy-MM-dd HH:mm' }}</td>-->
+                        <td>
+                            <span *ngIf="data?.status === 'OFFLINE'">离线</span>
+                            <span *ngIf="data?.status === 'ONLINE'">在线</span>
+                        </td>
+                    </tr>
+                </tbody>
+                <ng-template #totalTemplate let-total class="sysy"> 共 {{ total }} 条数据</ng-template>
+                <ng-template #noResultTemplate>
+                    <div class="flex flex-column align-items-center">
+                        <img src="../../../../../assets/img/no-result.png" alt="" class="no-result-img" />
+                        <span style="color: #7a7e8b">暂无数据</span>
+                    </div>
+                </ng-template>
+            </nz-table>
+        </div>
+    </div>
+</div>
