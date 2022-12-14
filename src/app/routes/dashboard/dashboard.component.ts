@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {salimAnimation} from '../../shared/utils/animate';
-import {DeviceService} from '../service/manage/device.service';
-import {DashboardService} from './dashboard.service';
-import {NzModalService} from 'ng-zorro-antd/modal';
-import {ModalDashboardComponent} from './modal-dashboard/modal-dashboard.component';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { salimAnimation } from '../../shared/utils/animate';
+import { DeviceService } from '../service/manage/device.service';
+import { DashboardService } from './dashboard.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -23,20 +23,35 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     jsonData: any;
     flg: string;
 
-    constructor(
-        private deviceService: DeviceService,
-        public dashboardService: DashboardService,
-        private modalService: NzModalService,
-    ) {
-    }
+    dashboardInfo: any;
+    alarmList: any;
+    pageInfo = {
+        pi: 1,
+        ps: 10,
+        total: 0,
+        loading: false,
+    };
+    constructor(private deviceService: DeviceService, public dashboardService: DashboardService, private modalService: NzModalService) {}
 
-    ngAfterViewInit(): void {
-    }
+    ngAfterViewInit(): void {}
 
     ngOnInit(): void {
+        this.dashboardService.baseInfo().subscribe((res) => {
+            console.log(res);
+            this.dashboardInfo = res;
+        });
+        const params = {
+            current: this.pageInfo.pi,
+            size: this.pageInfo.ps,
+        };
+        this.dashboardService.alarmPage(params).subscribe((res) => {
+            console.log(res);
+            this.alarmList = res?.records;
+        });
+
         this.dashboardService.deviceType.subscribe((res) => {
             this.flg = res;
-            this.deviceService.list({deviceCategoryId: res}).subscribe((e) => {
+            this.deviceService.list({ deviceCategoryId: res }).subscribe((e) => {
                 this.deviceList = e;
                 e.forEach((item) => {
                     item.threeDInfo = JSON.parse(item.threeDInfo);
@@ -48,18 +63,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     modaltest(params) {
-        this.modalService.create({
-            nzContent: ModalDashboardComponent,
-            nzComponentParams: {
-                params
-            },
-            nzStyle: {top: '150px'},
-            nzWidth: '985px',
-            nzWrapClassName: 'modal-dashboard',
-            nzTitle: '新增',
-            nzFooter: null,
-        }).afterClose.subscribe((res) => {
-        });
+        this.modalService
+            .create({
+                nzContent: ModalDashboardComponent,
+                nzComponentParams: {
+                    params,
+                },
+                nzStyle: { top: '150px' },
+                nzWidth: '985px',
+                nzWrapClassName: 'modal-dashboard',
+                nzTitle: '新增',
+                nzFooter: null,
+            })
+            .afterClose.subscribe((res) => {});
     }
 
     postmessage() {
@@ -79,7 +95,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     loadPhotovoltaicMarker() {
-        this.deviceService.deviceLatestData({deviceNo: '0869334052167254'}).subscribe((res) => {
+        this.deviceService.deviceLatestData({ deviceNo: '0869334052167254' }).subscribe((res) => {
             if (res['jsonData']) {
                 const photovoltaicJsonData = JSON.parse(this.deviceLatestData['jsonData']);
                 console.log(photovoltaicJsonData);
@@ -100,7 +116,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     loadDeviceLatestData(no) {
-        this.deviceService.deviceLatestData({deviceNo: no}).subscribe((res) => {
+        this.deviceService.deviceLatestData({ deviceNo: no }).subscribe((res) => {
             this.deviceLatestData = res;
             if (res['jsonData']) {
                 this.jsonData = JSON.parse(this.deviceLatestData['jsonData']);
@@ -112,7 +128,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     loadTruckLatestData(no) {
-        this.deviceService.truckLatestData({deviceNo: no}).subscribe((res) => {
+        this.deviceService.truckLatestData({ deviceNo: no }).subscribe((res) => {
             this.truckLatestData = res;
             const setting = JSON.parse(res.setting);
             if (this.truckLatestData['latestTemperature']) {
@@ -143,6 +159,4 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.dashboardService.leftPanelFalg.next(true);
         this.dashboardService.showRightPanel.next(true);
     }
-
-
 }

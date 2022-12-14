@@ -131,8 +131,8 @@ export class UserLoginComponent implements OnDestroy {
                 {
                     grant_type: 'password',
                     username: this.userName.value,
-                    // password: MD5(this.password.value),
-                    password: this.password.value,
+                    password: MD5(this.password.value),
+                    // password: this.password.value,
                     captchaKey: this.captchaKey,
                     captchaVerCode: this.form.value.captchaVerCode ? this.form.value.captchaVerCode.toLowerCase() : '',
                     tenantId: '000000',

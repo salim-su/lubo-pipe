@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "http://lmgj.fanztech.com/api/",
+        "target": "http://localhost:8866",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true,
